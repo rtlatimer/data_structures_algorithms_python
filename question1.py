@@ -8,13 +8,11 @@ Your function definition should look like: question1(s, t) and return a boolean 
 # Return true if it is
 
 
-from collections import Counter
-
 def question1(s,t):
     if s and t: # Check to see if string is empty
         if len(s) >= len(t): # 't' should not be longer than 's'
             for char in range(len(s)):
-                if Counter(t.lower()) == Counter(s.lower()[char:char + len(t)]):
+                if sorted(t.lower()) == sorted(s.lower()[char:char + len(t)]):
                     print "Looking for '" + t + "' in '" + s + "': "
                     return True
     print "Looking for '" + t + "' in '" + s + "': "
@@ -28,6 +26,11 @@ print question1('bubble','sort') # False
 print question1('bubble','') # False
 print question1('bubble','bub') # True
 print question1('spongebob', 'bboeg') # True
+
+def question3(G):
+    min_span_tree = G
+    for vertice in G:
+
 
 
 
