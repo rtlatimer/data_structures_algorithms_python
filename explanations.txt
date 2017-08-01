@@ -1,0 +1,39 @@
+Technical Interview Practice - Robert Latimer
+
+***Question 1***:
+The first challenge was actually defining what a substring was. After some googling, I determined that a substring of a string needed to include all letters found in the parent string, and needed to create an anagram in the correct order of the letters in the original string. For example, let's look at the word 'dormitory'. The word 'room', can be made using letters from 'dormitory', however the letters from 'room' would not classify as a substring because they fail to maintain proper order (d-orm-it-o-ry). A proper substring for the word 'dormitory' would be 'miro'. The letters from 'miro' can be rearranged to be 'ormi', which correspond to the proper order of letters found in 'd-ormi-tory'.
+
+My intuition for tackling this problem was to take the string 's' and create a list of all the possible substrings. The string 'ball' would be broken into ['ba', 'al', 'll', 'bal', 'all', 'ball']. Then I would do the same thing for the string 't' and compare it to the list of 's'. I quickly realized this solution would not be efficient at all if my original string was a large word. The efficiency of this solution would be O(s! * t!). Yikes!
+
+For my solution, I first started by verifying that the string was not empty, and then made sure that 't' was not longer than 's'. If the strings passed the few conditional requirements, I then looped over the entire 's' string and checked to see if the sorted version of 't' was identical to some portion of the sorted version of 's', and if it was, then return 'True'.
+
+Efficiency:
+The function will iterate over the entire string 's' in the worst scenario, and will try all possible substrings that are as long as string 't'. For example, if 's' = 'bubble' (6 characters) and 't' = 'bub' (3 characters), the function will test every 3 character chunk of 's' to see if any match 't'. 'bubble' can be broken into four 3-letter portions ['bub', 'ubb', 'bbl', and 'ble'], so for any given 's' and 't', the maximum number of substrings to test is equal to: len(s) - len(t) + 1. Therefore time complexity would equal: O((s - t + 1)(s)) == O((s^2 - ts + s)). Considering 's' is the largest possible length we will need to compute, our space complexity will result to O(s).
+
+
+***Question 2***:
+To search for the largest palindromic substring contained in string 'a', I designed a function to loop through all possible substrings of 'a' and check if a particular substring is a palindrome. I set a variable called 'word' to store a found palindrome. If a new palindrome was found that was longer than the current value in the 'word' variable, then the current value would be replaced with the longer palindrome.
+
+Efficiency:
+Because we loop over the string 'a' twice, our worst-case time complexity is O(a^2). Because a stored algorithm will be, at max, as long as 'a', our space complexity is O(a).
+
+
+***Question 3***:
+To find the minimum spanning tree, I used Kruskal's algorithm to identify edges with the smallest value. I first created an empty list to store each edge and sorted the edges from smallest value to largest. The function then looped over the sorted_edges list and would add edges to the min_span_tree dictionary until each node was connected. 
+
+Efficiency:
+Sorting the edges is the main source of time efficency and a worst-case scenario would result in O(n * log(n)) where n is the total number of edges. For space considerations, the function creates an edge list and a min_span_tree dictionary. The dictionary will not be as long as the edge list because we are eliminating long edges, therefor the space efficiency is equal to O(n) where n is the total number of edges.
+
+
+***Question 4***:
+To find the least common ancestor of a BST, I first checked to see if one node was smaller than the root while the other was larger. If this case was satisfied, then I could deduct that the root node was the least common ancestor and forego the rest of the function code. If the root did not straddle the nodes, I used a for-loop to decipher the matrix and created a dictionary to store all child and parent node combinations for quick reference. The function then checks to see if both nodes are smaller or larger than the root node to identify which branch the least common ancestor lies. If one node is the parent of the other node, we can conclude that the parent node is also the least common ancestor. If that is not the case, then the function checks to see which of the nodes on the appropriate side of the root is a direct child of the root, and will identify that node as the least common ancestor.
+
+Efficiency:
+To identify the least common ancestor, we only need to loop over the parent-child dictionary once. By comparing the node values to the root value, we are able to eliminate one side of the tree, and the algorithm will continue to split the data it needs to compare as it traverses farther down the tree. Because the algorithm continuously splits the data, the time complexity can be summarized by O(log n). We require space to store the parent-child pairs when deciphering the matrix, but only one copy is created and our output is a single numerical value, therefore the space complexity can be summarized by O(1).
+
+
+***Question 5***:
+To find the value of the "m-th" element from the end of a linked-list, I implemented the Node class that was provided and created a LinkedList class with an append method to build a linked list. The function starts by looping over the linked list to count the total number of elements. Once the length is found, the value m is subtracted from it and the function loops over the list again until it reaches the appropriate location 'm' and returns its value.
+
+Efficiency:
+Because the function loops over the list twice, the worst-case time complexity can be summarized by O(n^2) where n is equal to the number of elements in the linked list. Because we are subtracting 'm' from the length, our second iteration should almost always require less time. We are only creating local variables inside the function to count the elements and our output is only the value found at 'm', so the space complexity is O(1).
