@@ -5,10 +5,10 @@ The first challenge was actually defining what a substring was. After some googl
 
 My intuition for tackling this problem was to take the string 's' and create a list of all the possible substrings. The string 'ball' would be broken into ['ba', 'al', 'll', 'bal', 'all', 'ball']. Then I would do the same thing for the string 't' and compare it to the list of 's'. I quickly realized this solution would not be efficient at all if my original string was a large word. The efficiency of this solution would be O(s! * t!). Yikes!
 
-For my solution, I first started by verifying that the string was not empty, and then made sure that 't' was not longer than 's'. If the strings passed the few conditional requirements, I then looped over the entire 's' string and checked to see if the sorted version of 't' was identical to some portion of the sorted version of 's', and if it was, then return 'True'.
+For my solution, I first checked for edge cases and made sure the inputs were strings, 's' was longer than 't', and they were not null or empty. Then, with the help of the Counter module, I made a dictionary with letter counts of 't'. I then looped over 's' to find every possible substring of length 't' and checked if any of the 's' substrings were equal to 't'. 
 
 Efficiency:
-The function will iterate over the entire string 's' in the worst scenario, and will try all possible substrings that are as long as string 't'. For example, if 's' = 'bubble' (6 characters) and 't' = 'bub' (3 characters), the function will test every 3 character chunk of 's' to see if any match 't'. 'bubble' can be broken into four 3-letter portions ['bub', 'ubb', 'bbl', and 'ble'], so for any given 's' and 't', the maximum number of substrings to test is equal to: len(s) - len(t) + 1. Therefore time complexity would equal: O((s - t + 1)(s)) == O((s^2 - ts + s)). Considering 's' is the largest possible length we will need to compute, our space complexity will result to O(s).
+In the worst-case scenario, we have to loop over the entire string 's' which results in a time complexity of O(n) where n is equal to len(s). Because we are creating a dictionary with an upper bound of 26 possible characters, the space complexity is O(1).
 
 
 ***Question 2***:
